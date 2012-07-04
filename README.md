@@ -18,11 +18,18 @@ Filters are not supported yet, but nested loops pose no problem (the major probl
 
 Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt).
 
-### Run the tests
+### Get the sources and run the tests
 
-Cases for all the variants of `start to_/until_ end [by step]` are tested, with positive and negative steps:
+You can checkout the code with:
+
+    git checkout git://github.com/ochafik/optimized-loops-macros.git
+    cd optimized-loops-macros
+
+And run the test with:
 
     sbt ~test
+    
+Cases for all the variants of `start to_/until_ end [by step]` are tested, with positive and negative steps.
     
 ### Build / publish locally
 
