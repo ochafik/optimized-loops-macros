@@ -29,6 +29,7 @@ with TypeChecks
     val stepVal = newLocalVal(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
     val endVal = newLocalVal(fresh("end"), IntTpe, end)
 
+    // Type-check a fake (ordered) block, to force creation of ValDef symbols:
     typeCheck(
       Block(
         List(iVar, iVal, stepVal, endVal),
@@ -36,6 +37,7 @@ with TypeChecks
       )
     )
     
+    // Replace any mention of the lambda parameter by a reference to iVal:
     val replacedBody = transform(body) {
       case tree if tree.symbol == param.symbol => iVal()
     }
