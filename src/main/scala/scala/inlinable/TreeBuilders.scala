@@ -11,7 +11,12 @@ extends InlinableNames
   import definitions._
 
   implicit def valDef2Ident(d: ValDef) = new {
-    def apply() = Ident(d.name)
+    def apply(): Ident = {
+      val i = Ident(d.name)
+      if (d.symbol != null && d.symbol != NoSymbol)
+        i.symbol = d.symbol
+      i
+    }
   }
 
   def transform(tree: Tree)(pf: PartialFunction[Tree, Tree]) = {
@@ -63,12 +68,14 @@ extends InlinableNames
   def intAdd(a: => Tree, b: => Tree) =
     binOp(a, IntTpe.member(nme.PLUS), b)
 
-  def newVar(name: String, tpe: Type, defaultValue: Tree = EmptyTree) =
-    ValDef(Modifiers(Flag.MUTABLE), N(name), TypeTree(tpe), defaultValue)
-
-  def newVal(name: String, tpe: Type, defaultValue: Tree = EmptyTree) =
-    ValDef(NoMods, N(name), TypeTree(tpe), defaultValue)
-
+  import Flag._
+  
+  def newLocalVar(name: String, tpe: Type, defaultValue: Tree = EmptyTree) =
+    ValDef(Modifiers(union(MUTABLE, PRIVATE)), N(name), TypeTree(tpe), defaultValue)
+  
+  def newLocalVal(name: String, tpe: Type, defaultValue: Tree = EmptyTree) =
+    ValDef(Modifiers(PRIVATE), N(name), TypeTree(tpe), defaultValue)
+    
   def newWhileLoop(fresh: String => String, cond: Tree, body: Tree): Tree = {
     val labelName = N(fresh("while$"))
     LabelDef(

@@ -10,15 +10,10 @@ private[inlinable] object InlinableRangeMacros
   
   def rangeForeachImpl(c: Context)(f: c.Expr[Int => Unit]): c.Expr[Unit] = {
     c.Expr[Unit](
-      new RangeLoops {
-        override val universe = c.universe
+      new Contextualized(c) with RangeLoops {
         import universe._
         import definitions._
 
-        override val resetAllAttrs = 
-          (tree: Tree) =>
-            c.resetAllAttrs(tree.asInstanceOf[c.Tree]).asInstanceOf[Tree]
-        
         lazy val defaultReplacement = {
           Apply(
             Select(
@@ -28,7 +23,7 @@ private[inlinable] object InlinableRangeMacros
         }
 
         val result = try {
-          c.typeCheck(f.tree).asInstanceOf[Tree] match {
+          typeCheck(f.tree.asInstanceOf[Tree]) match {
             case Function(List(param @ ValDef(mods, name, tpt, rhs)), body) =>
               c.prefix.tree.asInstanceOf[Tree] match {
                 case InlinableRangeTree(start, end, step, isInclusive) =>
@@ -41,12 +36,13 @@ private[inlinable] object InlinableRangeMacros
                   defaultReplacement
               }
             case _ =>
-              c.warning(f.tree.pos, errorMessageFormat.format("unsupported body function: " + f.tree))
+              c.warning(f.tree.pos.asInstanceOf[c.Position], errorMessageFormat.format("unsupported body function: " + f.tree))
               defaultReplacement
           }
         } catch { case ex =>
           ex.printStackTrace
-          c.warning(c.enclosingPosition, errorMessageFormat.format("internal error: " + ex))  
+          c.warning(c.enclosingPosition, errorMessageFormat.format("internal loop optimization error: " + ex))
+          defaultReplacement  
         }
       }.result.asInstanceOf[c.Tree]
     )

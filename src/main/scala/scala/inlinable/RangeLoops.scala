@@ -9,13 +9,12 @@ trait RangeLoops
 extends TreeBuilders
 with CommonMatchers
 with InlinableRangeMatchers
+with TypeChecks
 {
   val universe: reflect.makro.Universe
   import universe._
   import definitions._
 
-  val resetAllAttrs: Tree => Tree
-  
   def newWhileRangeLoop(
       fresh: String => String,
       start: Tree, 
@@ -25,14 +24,25 @@ with InlinableRangeMatchers
       param: ValDef, 
       body: Tree): Tree = 
   {
-    val iVar = newVar(fresh("i"), IntTpe, start)
-    val iVal = newVar(fresh("ii"), IntTpe, iVar())
-    val stepVal = newVal(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
-    val endVal = newVal(fresh("end"), IntTpe, end)
+    val iVar = newLocalVar(fresh("i"), IntTpe, start)
+    val iVal = newLocalVal(fresh("ii"), IntTpe, iVar())
+    val stepVal = newLocalVal(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
+    val endVal = newLocalVal(fresh("end"), IntTpe, end)
 
-    val transformedBody = resetAllAttrs(transform(body) {
+    val replacedBody = transform(body) {
       case tree if tree.symbol == param.symbol => iVal()
-    })
+    }
+
+    val explicitSymbols = false
+
+    if (explicitSymbols)
+      Array(iVar, iVal, stepVal, endVal).foreach(typeCheck(_))
+
+    val finalBody = 
+      if (explicitSymbols)
+        replacedBody
+      else
+        resetAllAttrs(replacedBody)
 
     def positiveCondition =
       binOp(
@@ -60,7 +70,7 @@ with InlinableRangeMatchers
         negativeCondition
       case _ =>
         // we don't know if the step is positive or negative: cool!
-        val isPositiveVal = newVal(
+        val isPositiveVal = newLocalVal(
           fresh("isStepPositive"), 
           BooleanTpe,
           binOp(stepVal(), intOp(nme.GT), newInt(0))
@@ -84,7 +94,7 @@ with InlinableRangeMatchers
         condition,
         Block(
           iVal,
-          transformedBody,
+          finalBody,
           Assign(iVar(), intAdd(iVar(), stepVal()))
         )
       )
