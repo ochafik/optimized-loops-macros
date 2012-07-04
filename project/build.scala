@@ -35,9 +35,9 @@ object OptimizedLoopsBuild extends Build
     )
   )
   
-  lazy val optimizedScalaLoops = 
+  lazy val scalaInlinable = 
     Project(
-      id = "optimized-scala-loops",
+      id = "scala-inlinable",
       base = file("."), 
       settings = 
         Defaults.defaultSettings ++ 

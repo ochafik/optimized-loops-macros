@@ -36,7 +36,7 @@ Create `build.sbt` as follows:
 
     scalaVersion := "2.10.0-M4"
     
-    libraryDependencies += "com.nativelibs4java" %% "optimized-scala-loops" % "0.1-SNAPSHOT"
+    libraryDependencies += "com.nativelibs4java" %% "scala-inlinable" % "0.1-SNAPSHOT"
     
     // Uncomment the following option to examine the code after application of macros
     // (you'll see while loops instead of Range.foreach calls)
