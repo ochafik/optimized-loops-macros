@@ -30,3 +30,8 @@ Ideally, this should be merged into Scala (scala.inlinable.InlineableRange shoul
 
 Also, for ideas of future developments, checkout which optimizations [ScalaCL supports](https://code.google.com/p/scalacl/wiki/ScalaCLPlugin#General_optimizations), for instance. 
 
+## Where can this project be discussed ?
+
+- From [this discussion on scala-internals](https://groups.google.com/d/topic/scala-internals/7KKEMl8gWKk/discussion)
+- On Twitter: [@ochafik](https://twitter.com/ochafik)
+- Here: fork, modify, submit pull-requests!
