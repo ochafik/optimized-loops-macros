@@ -16,7 +16,7 @@ Filters are not supported yet, but nested loops pose no problem (the major probl
     
 ## Build / Test
 
-Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt).
+Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt) (this will help you get sbt 0.12.0-RC3 and Scala 2.10.0-M4 automatically).
 
 ### Get the sources and run the tests
 
