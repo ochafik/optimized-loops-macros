@@ -7,10 +7,11 @@ object OptimizedLoopsBuild extends Build
       organization := "com.nativelibs4java",
       version := "1.0-SNAPSHOT",
       licenses := Seq("BSD-3-Clause" -> url("http://www.opensource.org/licenses/BSD-3-Clause")),
-      homepage := Some(url("http://ochafik.com/blog/"))
+      homepage := Some(url("https://github.com/ochafik/optimized-loops-macros"))
   )
   lazy val mavenSettings = Seq(
     publishMavenStyle := true,
+    publishArtifact in Test := false,
     publishTo <<= version { (v: String) =>
       val nexus = "https://oss.sonatype.org/"
       if (v.trim.endsWith("-SNAPSHOT")) 
@@ -18,7 +19,20 @@ object OptimizedLoopsBuild extends Build
       else
         Some("releases"  at nexus + "service/local/staging/deploy/maven2")
     },
-    pomIncludeRepository := { _ => false }
+    pomIncludeRepository := { _ => false },
+    pomExtra := (
+      <scm>
+        <url>git@github.com:ochafik/optimized-loops-macros.git</url>
+        <connection>scm:git:git@github.com:ochafik/optimized-loops-macros.git</connection>
+      </scm>
+      <developers>
+        <developer>
+          <id>ochafik</id>
+          <name>Olivier Chafik</name>
+          <url>http://ochafik.com</url>
+        </developer>
+      </developers>
+    )
   )
   
   lazy val optimizedScalaLoops = 
