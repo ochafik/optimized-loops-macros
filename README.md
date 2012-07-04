@@ -18,9 +18,26 @@ Filters are not supported yet, but nested loops pose no problem (the major probl
 
 Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt).
 
-Run the tests with:
+### Run the tests
 
     sbt ~test
+
+### Build / publish locally
+
+    sbt publish-local
+
+### Compile your app with it
+
+Add this to your `build.sbt` file (after `publish-local`, see above):
+
+    libraryDependencies += "com.nativelibs4java" % "optimized-scala-loops" % "0.1-SNAPSHOT"
+
+In your code:
+
+    import scala.inlinable._
+    
+    for (i <- 0 until_ 10) println(i)
+    for (i <- 0 to_ 10 by 2) println(i)
     
 ## What's next ?
 
