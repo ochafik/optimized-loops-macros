@@ -5,7 +5,7 @@ object OptimizedLoopsBuild extends Build
 {
   lazy val infoSettings = Seq(
       organization := "com.nativelibs4java",
-      version := "1.0-SNAPSHOT",
+      version := "0.1-SNAPSHOT",
       licenses := Seq("BSD-3-Clause" -> url("http://www.opensource.org/licenses/BSD-3-Clause")),
       homepage := Some(url("https://github.com/ochafik/optimized-loops-macros"))
   )
