@@ -43,4 +43,23 @@ package object inlinable
     def inlined = InlinableRange(r.start, r.end, r.step, r.isInclusive)
   }
   */
+  
+  import language.implicitConversions
+  import language.experimental.macros
+  import reflect.makro.Context
+
+  /*
+  implicit def context2RangeLoops(c0: Context) : RangeLoops { 
+    val universe: c0.universe.type 
+  } = {
+    new { 
+      override val universe: c0.universe.type = 
+        c0.universe 
+      override val resetAllAttrs = 
+        (tree: c0.universe.Tree) => c0.resetAllAttrs(tree)
+    } with RangeLoops
+  }
+  implicit def context2InlinableRangeMatchers(c0: Context) : InlinableRangeMatchers { val universe: c0.universe.type } =
+    new { override val universe: c0.universe.type = c0.universe } with InlinableRangeMatchers
+  */
 }
