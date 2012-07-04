@@ -3,6 +3,8 @@ package scala.inlinable
 import org.junit._
 import Assert._
 
+import collection.mutable.ArrayBuffer
+
 class InlinableTest {
   
   val n = 10
@@ -93,8 +95,6 @@ class InlinableTest {
   
   @Test
   def testAlias {
-    import collection.mutable.ArrayBuffer
-    
     val Seq(is, js) = (0 until 2).map(_ => new ArrayBuffer[Int])
     
     for (i <- 0 to_ 3) {
@@ -114,5 +114,15 @@ class InlinableTest {
     for (i <- 0 until_ n; j <- 0 until_ n; k <- 0 until_ n)
       tot += 1
     assertEquals(n * n * n, tot)
+  }
+  
+  @Test
+  def testCaptures {
+    var tot = 0
+    val buf = new ArrayBuffer[() => Int]
+    for (i <- 0 until_ n)
+      buf += (() => i)
+      
+    assertEquals((0 until n).toList, buf.map(_()).toList)
   }
 }
