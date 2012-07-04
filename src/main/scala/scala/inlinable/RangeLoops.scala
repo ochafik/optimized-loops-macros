@@ -27,7 +27,7 @@ with InlinableRangeMatchers
   {
     val iVar = newVar(fresh("i"), IntTpe, start)
     val iVal = newVar(fresh("ii"), IntTpe, iVar())
-    val stepVal = newVar(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
+    val stepVal = newVal(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
     val endVal = newVal(fresh("end"), IntTpe, end)
 
     val transformedBody = resetAllAttrs(transform(body) {
