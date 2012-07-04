@@ -1,15 +1,19 @@
 ## What is it ?
 
-This project is a simple yet functional prototype to port [ScalaCL](https://code.google.com/p/scalacl/) / [Scalaxy](https://github.com/ochafik/Scalaxy)'s loop rewrites to Scala 2.10.
+This project is a simple yet functional prototype to port a subset of [ScalaCL](https://code.google.com/p/scalacl/) / [Scalaxy](https://github.com/ochafik/Scalaxy)'s loop rewrites to Scala 2.10.
 
 The goal is to integrate it into Scala, which should be relatively easy.
 
-In the meanwhile, it supports foreach comprehensions of modified Ranges that are automagically rewritten to while loops:
+In the meanwhile, it supports foreach comprehensions of special Ranges that are automagically rewritten to while loops:
 
+	import scala.inlinable._
+	
     for (i <- 0 to_ 1000 by -2) {
     	println(i)
     }
 
+Filters are not supported yet, but nested loops pose no problem (the major problem here is to remember to put that nasty `_` suffix to `to_` and `until_` :-S).
+    
 ## Build / Test
 
 Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt).
