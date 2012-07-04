@@ -59,6 +59,16 @@ Run with:
 
 	sbt clean run
 	
+You'll see the following output that confirms your loops were optimized:
+
+	[info] /Users/ochafik/src/macrotest/Test.scala:4: Optimized this loop
+	[info]   for (i <- 0 until_ 10) println(i)
+	[info]          ^
+	[info] /Users/ochafik/src/macrotest/Test.scala:5: Optimized this loop
+	[info]   for (i <- 0 to_ 10 by 2) println(i)
+	[info]          ^
+
+	
 ## What's next ?
 
 Let's see what the feedback is first, in particular from Scala Compiler gurus.
