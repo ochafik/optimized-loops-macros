@@ -1,8 +1,5 @@
 package scala.inlinable
 
-import language.experimental.macros
-import reflect.makro.Context
-
 trait InlinableNames
 {
   val universe: reflect.makro.Universe

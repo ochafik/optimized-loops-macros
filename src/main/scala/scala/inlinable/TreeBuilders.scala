@@ -1,11 +1,8 @@
 package scala.inlinable
 
-import language.experimental.macros
-import reflect.makro.Context
-
 trait TreeBuilders
-extends InlinableNames
-with TypeChecks
+extends TypeChecks
+with InlinableNames
 {
   val universe: reflect.makro.Universe
   import universe._

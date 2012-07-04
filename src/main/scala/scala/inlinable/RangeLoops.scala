@@ -1,15 +1,10 @@
 package scala.inlinable
 
-import language.experimental.macros
-import reflect.makro.Context
-
-import collection._
-
 trait RangeLoops
-extends TreeBuilders
+extends TypeChecks
+with TreeBuilders
 with CommonMatchers
 with InlinableRangeMatchers
-with TypeChecks
 {
   val universe: reflect.makro.Universe
   import universe._
@@ -56,7 +51,7 @@ with TypeChecks
         endVal()
       )
     
-    val outerDecls = new mutable.ListBuffer[Tree]
+    val outerDecls = new collection.mutable.ListBuffer[Tree]
     outerDecls += iVar
     outerDecls += endVal
     outerDecls += stepVal

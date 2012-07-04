@@ -1,8 +1,5 @@
 package scala.inlinable
 
-import language.experimental.macros
-import reflect.makro.Context
-
 trait CommonMatchers
 {
   val universe: reflect.makro.Universe

@@ -1,7 +1,6 @@
 package scala.inlinable
 
 import language.experimental.macros
-import reflect.makro.Context
 
 case class InlinableRange(start: Int, end: Int, step: Int, isInclusive: Boolean)
 {

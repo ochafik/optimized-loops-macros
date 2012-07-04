@@ -1,17 +1,12 @@
 package scala.inlinable
 
-import language.experimental.macros
-import reflect.makro.Context
-
 trait InlinableRangeMatchers
 extends InlinableNames
 {
   val universe: reflect.makro.Universe
   import universe._
   
-  /**
-   * Matches `start to/until end [by step]`
-   */
+  /// Matches `start to/until end [by step]`
   object InlinableRangeTree {
     def unapply(tree: Tree): Option[(Tree, Tree, Option[Tree], Boolean)] = Option(tree) collect {
       case StartEndInclusive(start, end, isInclusive) =>
