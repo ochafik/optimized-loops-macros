@@ -32,6 +32,8 @@ Add this to your `build.sbt` file (after `publish-local`, see above):
 
     libraryDependencies += "com.nativelibs4java" % "optimized-scala-loops" % "0.1-SNAPSHOT"
 
+Haven't tried to figure things out yet, but the library should have a "self-erasing" behaviour: it's needed at compile time because it bundles its macros, but these macros should erase all traces of the library's types so it won't be needed in the classpath at runtime (to be confirmed, feedback is welcome). 
+    
 In your code:
 
     import scala.inlinable._
