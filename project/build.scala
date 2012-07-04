@@ -49,6 +49,9 @@ object OptimizedLoopsBuild extends Build
           libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-compiler" % _),
           libraryDependencies += "com.novocode" % "junit-interface" % "0.8" % "test",
           
+          //scalacOptions += "-Xprint:typer",
+          //scalacOptions += "-Yshow-trees", 
+          
           javacOptions ++= Seq("-Xlint:unchecked"),
           scalacOptions ++= Seq("-encoding", "UTF-8", "-deprecation", "-unchecked"),
           scalacOptions ++= Seq("-language:experimental.macros")
