@@ -25,19 +25,21 @@ You can checkout the code with:
     git checkout git://github.com/ochafik/optimized-loops-macros.git
     cd optimized-loops-macros
 
-And run the test with:
+And run the tests with:
 
     sbt ~test
     
-Cases for all the variants of `start to_/until_ end [by step]` are tested, with positive and negative steps.
+(cases for all the variants of `start to_/until_ end [by step]` are tested, with positive and negative steps)
     
 ### Build / publish locally
+
+I haven't published `scala-inlinable` to the [Sonatype OSS Repository](https://oss.sonatype.org/) yet, so if you want to use it you'll have to deploy it locally:
 
     sbt publish-local
 
 ### Usage example
 
-First, make sure to have built locally and run `sbt publish-local` (see above).
+First, make sure to have published `scala-inlinable` locally (see above).
 
 Create `build.sbt` as follows:
 
@@ -49,7 +51,7 @@ Create `build.sbt` as follows:
     // (you'll see while loops instead of Range.foreach calls)
     //scalacOptions += "-Xprint:typer"
 
-Put the following in `project/build.properties` (for paulp/sbt-extra's sbt script):
+Put the following in `project/build.properties` (for [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt)):
 
 	sbt.version=0.12.0-RC3
 
