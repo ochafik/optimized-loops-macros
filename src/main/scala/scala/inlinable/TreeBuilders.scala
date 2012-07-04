@@ -1,6 +1,6 @@
 package scala.inlinable
 
-trait TreeBuilders
+private[inlinable] trait TreeBuilders
 extends TypeChecks
 with InlinableNames
 {

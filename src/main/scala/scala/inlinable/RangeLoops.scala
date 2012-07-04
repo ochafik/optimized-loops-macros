@@ -1,6 +1,6 @@
 package scala.inlinable
 
-trait RangeLoops
+private[inlinable] trait RangeLoops
 extends TypeChecks
 with TreeBuilders
 with CommonMatchers

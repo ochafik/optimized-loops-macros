@@ -1,6 +1,6 @@
 package scala.inlinable
 
-trait TypeChecks
+private[inlinable] trait TypeChecks
 {
   val universe: reflect.makro.Universe
   import universe._

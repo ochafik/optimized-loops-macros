@@ -1,6 +1,6 @@
 package scala.inlinable
 
-trait InlinableRangeMatchers
+private[inlinable] trait InlinableRangeMatchers
 extends InlinableNames
 {
   val universe: reflect.makro.Universe

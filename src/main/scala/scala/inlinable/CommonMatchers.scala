@@ -1,6 +1,6 @@
 package scala.inlinable
 
-trait CommonMatchers
+private[inlinable] trait CommonMatchers
 {
   val universe: reflect.makro.Universe
   import universe._

@@ -1,6 +1,6 @@
 package scala.inlinable
 
-trait InlinableNames
+private[inlinable] trait InlinableNames
 {
   val universe: reflect.makro.Universe
   import universe._

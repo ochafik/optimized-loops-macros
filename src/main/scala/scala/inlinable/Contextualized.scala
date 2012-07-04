@@ -2,7 +2,7 @@ package scala.inlinable
 
 import reflect.makro.Context
 
-class Contextualized(c: Context)
+private[inlinable] class Contextualized(c: Context)
 extends TypeChecks
 {
   override val universe = c.universe
