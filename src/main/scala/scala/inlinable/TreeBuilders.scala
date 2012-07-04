@@ -5,6 +5,7 @@ import reflect.makro.Context
 
 trait TreeBuilders
 extends InlinableNames
+with TypeChecks
 {
   val universe: reflect.makro.Universe
   import universe._
@@ -13,8 +14,10 @@ extends InlinableNames
   implicit def valDef2Ident(d: ValDef) = new {
     def apply(): Ident = {
       val i = Ident(d.name)
-      if (d.symbol != null && d.symbol != NoSymbol)
+      if (d.symbol != null && d.symbol != NoSymbol) {
         i.symbol = d.symbol
+        typeCheck(i)
+      }
       i
     }
   }

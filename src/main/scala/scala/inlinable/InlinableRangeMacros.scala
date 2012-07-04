@@ -6,7 +6,7 @@ import reflect.makro.Context
 private[inlinable] object InlinableRangeMacros
 {
   private[this] val errorMessageFormat = "Failed to optimize loop (%s)"
-  private[this] val successMessage = "Optimized this loop"
+  private[this] val successMessage = "Rewrote this for-comprehension into a while loop"
   
   def rangeForeachImpl(c: Context)(f: c.Expr[Int => Unit]): c.Expr[Unit] = {
     c.Expr[Unit](

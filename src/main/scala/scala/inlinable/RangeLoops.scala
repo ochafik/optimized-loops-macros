@@ -29,21 +29,17 @@ with TypeChecks
     val stepVal = newLocalVal(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
     val endVal = newLocalVal(fresh("end"), IntTpe, end)
 
+    typeCheck(
+      Block(
+        List(iVar, iVal, stepVal, endVal),
+        newUnit
+      )
+    )
+    
     val replacedBody = transform(body) {
       case tree if tree.symbol == param.symbol => iVal()
     }
-
-    val explicitSymbols = false
-
-    if (explicitSymbols)
-      Array(iVar, iVal, stepVal, endVal).foreach(typeCheck(_))
-
-    val finalBody = 
-      if (explicitSymbols)
-        replacedBody
-      else
-        resetAllAttrs(replacedBody)
-
+    
     def positiveCondition =
       binOp(
         iVar(), 
@@ -94,7 +90,7 @@ with TypeChecks
         condition,
         Block(
           iVal,
-          finalBody,
+          replacedBody,
           Assign(iVar(), intAdd(iVar(), stepVal()))
         )
       )
