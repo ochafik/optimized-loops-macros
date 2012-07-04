@@ -34,7 +34,7 @@ private[inlinable] object InlinableRangeMacros
                 case InlinableRangeTree(start, end, step, isInclusive) =>
                   val optimized = 
                     newWhileRangeLoop(c.fresh(_), start, end, step, isInclusive, param, body)
-                  //c.info(c.enclosingPosition, successMessage, force = true)
+                  c.info(c.enclosingPosition, successMessage, force = false)
                   optimized
                 case _ =>
                   c.warning(c.prefix.tree.pos, errorMessageFormat.format("unsupported range: " + c.prefix.tree))

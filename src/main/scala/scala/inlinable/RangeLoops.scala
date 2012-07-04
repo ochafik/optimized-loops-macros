@@ -49,20 +49,16 @@ with InlinableRangeMatchers
       )
     
     val outerDecls = new mutable.ListBuffer[Tree]
-    
     outerDecls += iVar
     outerDecls += endVal
     outerDecls += stepVal
     
     val condition = step match {
       case None | Some(PositiveIntConstant(_)) =>
-        println("step(" + step + ") is > 0")
         positiveCondition
       case Some(NegativeIntConstant(_)) =>
-        println("step(" + step + ") is < 0")
         negativeCondition
       case _ =>
-        println("step(" + step + ") has unknown sign")
         // we don't know if the step is positive or negative: cool!
         val isPositiveVal = newVal(
           fresh("isStepPositive"), 
@@ -71,28 +67,28 @@ with InlinableRangeMatchers
         )
         outerDecls += isPositiveVal
         
+        // We don't duplicate the loop and specialize in positive vs. negative case
+        // for *many* reasons (code bloat is only one of them :-))
+        
+        // Note that the following expression does *not* simplify
+        // (positiveCondition is not the negation of negativeCondition)
         boolOr(
           boolAnd(isPositiveVal(), positiveCondition),
           boolAnd(boolNot(isPositiveVal()), negativeCondition)
         )
     }
     
-    println("condition = " + condition)
-
-    Block(
-      outerDecls.result ++
-      List(
-        newWhileLoop(
-          fresh,
-          condition,
-          Block(
-            iVal,
-            transformedBody,
-            Assign(iVar(), intAdd(iVar(), stepVal()))
-          )
+    outerDecls += 
+      newWhileLoop(
+        fresh,
+        condition,
+        Block(
+          iVal,
+          transformedBody,
+          Assign(iVar(), intAdd(iVar(), stepVal()))
         )
-      ),
-      newUnit
-    )
+      )
+      
+    Block(outerDecls.result, newUnit)
   }
 }

@@ -1,19 +1,28 @@
-This is a simple prototype to port ScalaCL / Scalaxy's loop rewrites to Scala 2.10.
+## What is it ?
+
+This project is a simple yet functional prototype to port [ScalaCL](https://code.google.com/p/scalacl/) / [Scalaxy](https://github.com/ochafik/Scalaxy)'s loop rewrites to Scala 2.10.
 
 The goal is to integrate it into Scala, which should be relatively easy.
 
-Please use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt).
+In the meanwhile, it supports foreach comprehensions of modified Ranges that are automagically rewritten to while loops:
 
-Run with:
+    for (i <- 0 to_ 1000 by -2) {
+    	println(i)
+    }
+
+## Build / Test
+
+Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt).
+
+Run the tests with:
 
     sbt ~test
     
-(you should be get a "failed optimization" compilation warning, and see two series of 0 to 10 println)
-    
-Current prototype only aims at optimizing Range loops, and do it well.
+## What's next ?
 
-Later (i.e. after InlinableRange is integrated to Scala / merged into Range), one might add Array.foreach and other pin-pointed optimizations (see which optimizations [ScalaCL supported](https://code.google.com/p/scalacl/wiki/ScalaCLPlugin#General_optimizations), for instance). 
+Let's see what the feedback is first, in particular from Scala Compiler gurus.
 
-Notes:
-- The magic of macros-as-methods means we hardly need to check the target type / symbols in tree matchers (we know that self is)
+Ideally, this should be merged into Scala (scala.inlinable.InlineableRange should just blend seamlessly into Range).
+
+Also, for ideas of future developments, checkout which optimizations [ScalaCL supports](https://code.google.com/p/scalacl/wiki/ScalaCLPlugin#General_optimizations), for instance. 
 
