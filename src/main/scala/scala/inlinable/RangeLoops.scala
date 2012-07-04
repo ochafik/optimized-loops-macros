@@ -12,12 +12,12 @@ with InlinableRangeMatchers
 
   def newWhileRangeLoop(
       fresh: String => String,
-      start: Tree, 
-      end: Tree, 
-      step: Option[Tree], 
-      isInclusive: Boolean, 
-      param: ValDef, 
-      body: Tree): Tree = 
+      start: Tree,
+      end: Tree,
+      step: Option[Tree],
+      isInclusive: Boolean,
+      param: ValDef,
+      body: Tree): Tree =
   {
     val iVar = newLocalVar(fresh("i"), IntTpe, start)
     val iVal = newLocalVal(fresh("ii"), IntTpe, iVar()) // body expects a local constant
@@ -31,31 +31,31 @@ with InlinableRangeMatchers
         newUnit
       )
     )
-    
+
     // Replace any mention of the lambda parameter by a reference to iVal:
     val replacedBody = transform(body) {
       case tree if tree.symbol == param.symbol => iVal()
     }
-    
+
     def positiveCondition =
       binOp(
-        iVar(), 
-        intOp(if (isInclusive) nme.LE else nme.LT), 
+        iVar(),
+        intOp(if (isInclusive) nme.LE else nme.LT),
         endVal()
       )
-      
+
     def negativeCondition =
       binOp(
         iVar(),
-        intOp(if (isInclusive) nme.GE else nme.GT), 
+        intOp(if (isInclusive) nme.GE else nme.GT),
         endVal()
       )
-    
+
     val outerDecls = new collection.mutable.ListBuffer[Tree]
     outerDecls += iVar
     outerDecls += endVal
     outerDecls += stepVal
-    
+
     val condition = step match {
       case None | Some(PositiveIntConstant(_)) =>
         positiveCondition
@@ -64,15 +64,15 @@ with InlinableRangeMatchers
       case _ =>
         // we don't know if the step is positive or negative: cool!
         val isPositiveVal = newLocalVal(
-          fresh("isStepPositive"), 
+          fresh("isStepPositive"),
           BooleanTpe,
           binOp(stepVal(), intOp(nme.GT), newInt(0))
         )
         outerDecls += isPositiveVal
-        
+
         // We don't duplicate the loop and specialize in positive vs. negative case
         // for *many* reasons (code bloat is only one of them :-))
-        
+
         // Note that the following expression does *not* simplify
         // (positiveCondition is not the negation of negativeCondition)
         boolOr(
@@ -80,8 +80,8 @@ with InlinableRangeMatchers
           boolAnd(boolNot(isPositiveVal()), negativeCondition)
         )
     }
-    
-    outerDecls += 
+
+    outerDecls +=
       newWhileLoop(
         fresh,
         condition,
@@ -91,7 +91,7 @@ with InlinableRangeMatchers
           Assign(iVar(), intAdd(iVar(), stepVal()))
         )
       )
-      
+
     Block(outerDecls.result, newUnit)
   }
 }

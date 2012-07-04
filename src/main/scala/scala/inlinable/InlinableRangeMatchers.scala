@@ -5,7 +5,7 @@ extends InlinableNames
 {
   val universe: reflect.makro.Universe
   import universe._
-  
+
   /// Matches `start to/until end [by step]`
   object InlinableRangeTree {
     def unapply(tree: Tree): Option[(Tree, Tree, Option[Tree], Boolean)] = Option(tree) collect {
@@ -15,7 +15,7 @@ extends InlinableNames
         (start, end, Some(step), isInclusive)
     }
   }
-  
+
   private[this] object StartEndInclusive {
     def unapply(tree: Tree): Option[(Tree, Tree, Boolean)] = Option(tree) collect {
       case

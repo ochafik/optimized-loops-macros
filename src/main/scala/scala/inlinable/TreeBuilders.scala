@@ -39,12 +39,12 @@ with InlinableNames
   def binOp(a: Tree, op: Symbol, b: Tree) =
     Apply(Select(a, op), List(b))
 
-  def intOp(name: Name) = 
-    IntTpe.member(name) 
-    
-  def boolOp(name: Name) = 
-    BooleanTpe.member(name) 
-    
+  def intOp(name: Name) =
+    IntTpe.member(name)
+
+  def boolOp(name: Name) =
+    BooleanTpe.member(name)
+
   def boolAnd(a: Tree, b: Tree) = {
     if (a == null)
       b
@@ -64,18 +64,18 @@ with InlinableNames
   def boolNot(a: => Tree) = {
     Select(a, nme.UNARY_!)
   }
-  
+
   def intAdd(a: => Tree, b: => Tree) =
     binOp(a, IntTpe.member(nme.PLUS), b)
 
   import Flag._
-  
+
   def newLocalVar(name: String, tpe: Type, defaultValue: Tree = EmptyTree) =
     ValDef(Modifiers(union(MUTABLE, PRIVATE)), N(name), TypeTree(tpe), defaultValue)
-  
+
   def newLocalVal(name: String, tpe: Type, defaultValue: Tree = EmptyTree) =
     ValDef(Modifiers(PRIVATE), N(name), TypeTree(tpe), defaultValue)
-    
+
   def newWhileLoop(fresh: String => String, cond: Tree, body: Tree): Tree = {
     val labelName = N(fresh("while$"))
     LabelDef(
