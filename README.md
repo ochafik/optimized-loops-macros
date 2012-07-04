@@ -28,23 +28,37 @@ Cases for all the variants of `start to_/until_ end [by step]` are tested, with 
 
     sbt publish-local
 
-### Compile your app with it
+### Usage example
 
-Add this to your `build.sbt` file (after `publish-local`, see above):
+First, make sure to have built locally and run `sbt publish-local` (see above).
+
+Create `build.sbt` as follows:
 
     scalaVersion := "2.10.0-M4"
     
     libraryDependencies += "com.nativelibs4java" %% "optimized-scala-loops" % "0.1-SNAPSHOT"
-
-Haven't tried to figure things out yet, but the library should have a "self-erasing" behaviour: it's needed at compile time because it bundles its macros, but these macros should erase all traces of the library's types so it won't be needed in the classpath at runtime (to be confirmed, feedback is welcome). 
     
-In your code:
+    // Uncomment the following option to examine the code after application of macros
+    // (you'll see while loops instead of Range.foreach calls)
+    //scalacOptions += "-Xprint:typer"
+
+Put the following in `project/build.properties` (for paulp/sbt-extra's sbt script):
+
+	sbt.version=0.12.0-RC3
+
+Create `Test.scala`:
 
     import scala.inlinable._
+
+	object Test extends App {    
+		for (i <- 0 until_ 10) println(i)
+		for (i <- 0 to_ 10 by 2) println(i)
+	}
     
-    for (i <- 0 until_ 10) println(i)
-    for (i <- 0 to_ 10 by 2) println(i)
-    
+Run with:
+
+	sbt clean run
+	
 ## What's next ?
 
 Let's see what the feedback is first, in particular from Scala Compiler gurus.
@@ -58,3 +72,8 @@ Also, for ideas of future developments, checkout which optimizations [ScalaCL su
 - From [this discussion on scala-internals](https://groups.google.com/d/topic/scala-internals/7KKEMl8gWKk/discussion)
 - On Twitter: [@ochafik](https://twitter.com/ochafik)
 - Here: fork, modify, submit pull-requests!
+
+## Additional notes
+
+Haven't tried to figure things out yet, but the library should have a "self-erasing" behaviour: it's needed at compile time because it bundles its macros, but these macros should erase all traces of the library's types so it won't be needed in the classpath at runtime (to be confirmed, feedback is welcome). 
+
