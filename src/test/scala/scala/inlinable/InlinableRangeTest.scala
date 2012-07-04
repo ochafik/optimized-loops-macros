@@ -62,11 +62,11 @@ class InlinableTest {
   @Test
   def testUntilVariableStep {
     {
-      var tot = 0; for (i <- 0 until_ n by 2) tot += 1
+      var tot = 0; for (i <- 0 until_ n by posStep) tot += 1
       assertEquals(n / 2, tot)
     }
     {
-      var tot = 0; for (i <- n until_ 0 by -2) tot += 1
+      var tot = 0; for (i <- n until_ 0 by negStep) tot += 1
       assertEquals(n / 2, tot)
     }
   }
@@ -107,7 +107,6 @@ class InlinableTest {
     assertEquals(List(0, 1, 2, 3), js.toList)
     assertEquals(List(2, 1, 2, 1, 2, 1, 2, 1), is.toList)
   }
-  
   
   @Test
   def testNested {
