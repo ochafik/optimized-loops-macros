@@ -35,10 +35,10 @@ extends InlinableNames
     Apply(Select(a, op), List(b))
 
   def intOp(name: Name) = 
-    IntClass.asType.member(name) 
+    IntTpe.member(name) 
     
   def boolOp(name: Name) = 
-    BooleanClass.asType.member(name) 
+    BooleanTpe.member(name) 
     
   def boolAnd(a: Tree, b: Tree) = {
     if (a == null)
@@ -61,7 +61,7 @@ extends InlinableNames
   }
   
   def intAdd(a: => Tree, b: => Tree) =
-    binOp(a, IntClass.asType.member(nme.PLUS), b)
+    binOp(a, IntTpe.member(nme.PLUS), b)
 
   def newVar(name: String, tpe: Type, defaultValue: Tree = EmptyTree) =
     ValDef(Modifiers(Flag.MUTABLE), N(name), TypeTree(tpe), defaultValue)

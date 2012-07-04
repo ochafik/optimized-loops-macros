@@ -25,10 +25,10 @@ with InlinableRangeMatchers
       param: ValDef, 
       body: Tree): Tree = 
   {
-    val iVar = newVar(fresh("i"), IntClass.asType, start)
-    val iVal = newVar(fresh("ii"), IntClass.asType, iVar())
-    val stepVal = newVar(fresh("step"), IntClass.asType, step.getOrElse(newInt(1)))
-    val endVal = newVal(fresh("end"), IntClass.asType, end)
+    val iVar = newVar(fresh("i"), IntTpe, start)
+    val iVal = newVar(fresh("ii"), IntTpe, iVar())
+    val stepVal = newVar(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
+    val endVal = newVal(fresh("end"), IntTpe, end)
 
     val transformedBody = resetAllAttrs(transform(body) {
       case tree if tree.symbol == param.symbol => iVal()
@@ -62,7 +62,7 @@ with InlinableRangeMatchers
         // we don't know if the step is positive or negative: cool!
         val isPositiveVal = newVal(
           fresh("isStepPositive"), 
-          BooleanClass.asType,
+          BooleanTpe,
           binOp(stepVal(), intOp(nme.GT), newInt(0))
         )
         outerDecls += isPositiveVal
