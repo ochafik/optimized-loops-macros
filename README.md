@@ -1,6 +1,6 @@
 ## What is it ?
 
-This project is a simple yet functional prototype to port a subset of [ScalaCL](https://code.google.com/p/scalacl/) / [Scalaxy](https://github.com/ochafik/Scalaxy)'s loop rewrites to Scala 2.10.
+This project is a simple yet fully functional prototype to port a subset of [ScalaCL](https://code.google.com/p/scalacl/) / [Scalaxy](https://github.com/ochafik/Scalaxy)'s loop rewrites to Scala 2.10.
 
 The goal is to integrate it into Scala, which should be relatively easy.
 
@@ -20,8 +20,10 @@ Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/s
 
 ### Run the tests
 
-    sbt ~test
+Cases for all the variants of `start to_/until_ end [by step]` are tested, with positive and negative steps:
 
+    sbt ~test
+    
 ### Build / publish locally
 
     sbt publish-local
