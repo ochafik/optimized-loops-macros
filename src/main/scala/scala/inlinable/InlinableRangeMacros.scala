@@ -3,7 +3,6 @@ package scala.inlinable
 import language.experimental.macros
 import reflect.makro.Context
 
-
 private[inlinable] object InlinableRangeMacros
 {
   private[this] val errorMessageFormat = "Failed to optimize loop (%s)"
@@ -16,8 +15,9 @@ private[inlinable] object InlinableRangeMacros
         import universe._
         import definitions._
 
-        override def resetAllAttrs(tree: Tree): Tree =
-          c.resetAllAttrs(tree.asInstanceOf[c.Tree]).asInstanceOf[Tree]
+        override val resetAllAttrs = 
+          (tree: Tree) =>
+            c.resetAllAttrs(tree.asInstanceOf[c.Tree]).asInstanceOf[Tree]
         
         lazy val defaultReplacement = {
           Apply(

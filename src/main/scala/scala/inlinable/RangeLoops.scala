@@ -14,7 +14,7 @@ with InlinableRangeMatchers
   import universe._
   import definitions._
 
-  def resetAllAttrs(tree: Tree): Tree
+  val resetAllAttrs: Tree => Tree
   
   def newWhileRangeLoop(
       fresh: String => String,
