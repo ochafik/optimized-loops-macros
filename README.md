@@ -8,7 +8,7 @@ In the meanwhile, it supports foreach comprehensions of special Ranges that are 
 
 	import scala.inlinable._
 	
-    for (i <- 0 to_ 1000 by -2) {
+    for (i <- 100 to_ 0 by -2) {
     	println(i)
     }
 
