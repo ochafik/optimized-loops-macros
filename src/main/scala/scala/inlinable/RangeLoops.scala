@@ -25,7 +25,7 @@ with TypeChecks
       body: Tree): Tree = 
   {
     val iVar = newLocalVar(fresh("i"), IntTpe, start)
-    val iVal = newLocalVal(fresh("ii"), IntTpe, iVar())
+    val iVal = newLocalVal(fresh("ii"), IntTpe, iVar()) // in case body wants to capture a stable ident 
     val stepVal = newLocalVal(fresh("step"), IntTpe, step.getOrElse(newInt(1)))
     val endVal = newLocalVal(fresh("end"), IntTpe, end)
 
