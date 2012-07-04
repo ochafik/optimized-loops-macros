@@ -14,18 +14,21 @@ private[inlinable] object InlinableRangeMacros
         import universe._
         import definitions._
 
+        val fTree = f.tree.asInstanceOf[Tree]
+        val prefixTree = c.prefix.tree.asInstanceOf[Tree]
+        
         lazy val defaultReplacement = {
           Apply(
             Select(
-              Select(c.prefix.tree.asInstanceOf[Tree], "toRange"),
+              Select(prefixTree, "toRange"),
               "foreach"),
-            List(f.tree.asInstanceOf[Tree]))
+            List(fTree))
         }
 
         val result = try {
-          typeCheck(f.tree.asInstanceOf[Tree]) match {
+          typeCheck(fTree) match {
             case Function(List(param @ ValDef(mods, name, tpt, rhs)), body) =>
-              c.prefix.tree.asInstanceOf[Tree] match {
+              prefixTree match {
                 case InlinableRangeTree(start, end, step, isInclusive) =>
                   val optimized = 
                     newWhileRangeLoop(c.fresh(_), start, end, step, isInclusive, param, body)
