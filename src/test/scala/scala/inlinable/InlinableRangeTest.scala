@@ -107,4 +107,13 @@ class InlinableTest {
     assertEquals(List(0, 1, 2, 3), js.toList)
     assertEquals(List(2, 1, 2, 1, 2, 1, 2, 1), is.toList)
   }
+  
+  
+  @Test
+  def testNested {
+    var tot = 0
+    for (i <- 0 until_ n; j <- 0 until_ n; k <- 0 until_ n)
+      tot += 1
+    assertEquals(n * n * n, tot)
+  }
 }
