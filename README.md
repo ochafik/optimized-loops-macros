@@ -2,7 +2,7 @@
 
 This project is a simple yet fully functional prototype to port a subset of [ScalaCL](https://code.google.com/p/scalacl/) / [Scalaxy](https://github.com/ochafik/Scalaxy)'s loop rewrites to Scala 2.10.
 
-The goal is to integrate it into Scala, which should be relatively easy.
+The goal is to integrate it into Scala, if possible.
 
 In the meanwhile, it supports foreach comprehensions of special Ranges that are automagically rewritten to while loops:
 
