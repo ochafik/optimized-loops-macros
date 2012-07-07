@@ -72,6 +72,33 @@ class InlinableTest {
       assertEquals(n / 2, tot)
     }
   }
+  @Test
+  def testToVariableRange {
+    {
+      val r = 0 to_ n by posStep
+      var tot = 0; for (i <- r) tot += 1
+      assertEquals(n / 2 + 1, tot)
+    }
+    {
+      val r = n to_ 0 by negStep
+      var tot = 0; for (i <- r) tot += 1
+      assertEquals(n / 2 + 1, tot)
+    }
+  }
+  
+  @Test
+  def testUntilVariableRange {
+    {
+      val r = 0 until_ n by posStep
+      var tot = 0; for (i <- r) tot += 1
+      assertEquals(n / 2, tot)
+    }
+    {
+      val r = n until_ 0 by negStep
+      var tot = 0; for (i <- r) tot += 1
+      assertEquals(n / 2, tot)
+    }
+  }
   
   @Test
   def testConstantEmpty {
@@ -126,3 +153,32 @@ class InlinableTest {
     assertEquals((0 until n).toList, buf.map(_()).toList)
   }
 }
+/*
+
+{
+	val range = r
+	val end = r.end
+	val step = r.step
+	val isInclusive = r.isInclusive
+	val isStepPositive = step > 0
+	
+	var ii = r.start
+	while ({
+		if (isInclusive)
+			if (isStepPositive)
+				ii <= end	
+			else
+				ii >= end
+		else
+			if (isStepPositive)
+				ii < end	
+			else
+				ii > end
+	}) {
+		val i = ii
+		
+		ii += 1
+	}
+}
+
+*/

@@ -75,9 +75,10 @@ with InlinableRangeMatchers
 
         // Note that the following expression does *not* simplify
         // (positiveCondition is not the negation of negativeCondition)
-        boolOr(
-          boolAnd(isPositiveVal(), positiveCondition),
-          boolAnd(boolNot(isPositiveVal()), negativeCondition)
+        If(
+          isPositiveVal(),
+          positiveCondition,
+          negativeCondition
         )
     }
 
