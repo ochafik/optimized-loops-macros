@@ -16,7 +16,7 @@ Filters are not supported yet, but nested loops pose no problem (the major probl
     
 ## Build / Test
 
-Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt) (this will help you get sbt 0.12.0-RC3 and Scala 2.10.0-M4 automatically).
+Please do yourself a favor and use [paulp/sbt-extras](https://github.com/paulp/sbt-extras)'s [sbt script](https://raw.github.com/paulp/sbt-extras/master/sbt) (this will help you get sbt 0.12.0-RC3 and Scala 2.10.0-M6 automatically).
 
 ### Get the sources and run the tests
 
@@ -43,7 +43,7 @@ First, make sure to have published `scala-inlinable` locally (see above).
 
 Create `build.sbt` as follows:
 
-    scalaVersion := "2.10.0-M4"
+    scalaVersion := "2.10.0-M6"
     
     libraryDependencies += "com.nativelibs4java" %% "scala-inlinable" % "0.1-SNAPSHOT"
     
