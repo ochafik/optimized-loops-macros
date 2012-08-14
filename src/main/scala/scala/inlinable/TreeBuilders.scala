@@ -39,10 +39,10 @@ with InlinableNames
   def binOp(a: Tree, op: Symbol, b: Tree) =
     Apply(Select(a, op), List(b))
 
-  def intOp(name: Name) =
+  def intOp(name: TermName) =
     IntTpe.member(name)
 
-  def boolOp(name: Name) =
+  def boolOp(name: TermName) =
     BooleanTpe.member(name)
 
   def boolAnd(a: Tree, b: Tree) = {
@@ -51,7 +51,7 @@ with InlinableNames
     else if (b == null)
       a
     else
-      binOp(a, boolOp(nme.ZAND /* AMPAMP */), b)
+      binOp(a, boolOp(N("&&")), b)
   }
   def boolOr(a: Tree, b: Tree) = {
     if (a == null)
@@ -59,14 +59,14 @@ with InlinableNames
     else if (b == null)
       a
     else
-      binOp(a, boolOp(nme.ZOR), b)
+      binOp(a, boolOp(N("||")), b)
   }
   def boolNot(a: => Tree) = {
-    Select(a, nme.UNARY_!)
+    Select(a, "!")
   }
 
   def intAdd(a: => Tree, b: => Tree) =
-    binOp(a, IntTpe.member(nme.PLUS), b)
+    binOp(a, IntTpe.member(N("+")), b)
 
   import Flag._
 

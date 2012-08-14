@@ -40,14 +40,14 @@ with InlinableRangeMatchers
     def positiveCondition =
       binOp(
         iVar(),
-        intOp(if (isInclusive) nme.LE else nme.LT),
+        intOp(N(if (isInclusive) "<=" else "<")),
         endVal()
       )
 
     def negativeCondition =
       binOp(
         iVar(),
-        intOp(if (isInclusive) nme.GE else nme.GT),
+        intOp(N(if (isInclusive) ">=" else ">")),
         endVal()
       )
 
@@ -66,7 +66,7 @@ with InlinableRangeMatchers
         val isPositiveVal = newLocalVal(
           fresh("isStepPositive"),
           BooleanTpe,
-          binOp(stepVal(), intOp(nme.GT), newInt(0))
+          binOp(stepVal(), intOp(N(">")), newInt(0))
         )
         outerDecls += isPositiveVal
 

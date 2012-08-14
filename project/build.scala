@@ -44,7 +44,7 @@ object OptimizedLoopsBuild extends Build
         infoSettings ++
         mavenSettings ++ 
         Seq(
-          scalaVersion := "2.10.0-M4",
+          scalaVersion := "2.10.0-M6",
           
           libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-compiler" % _),
           libraryDependencies += "com.novocode" % "junit-interface" % "0.8" % "test",
