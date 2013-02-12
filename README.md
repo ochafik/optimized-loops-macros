@@ -1,3 +1,9 @@
+# Moved to Scalaxy
+
+THIS WORK IS SUPERSEEDED BY [Scalaxy/Ranges](https://github.com/ochafik/Scalaxy/tree/master/Ranges), which is tailored for Scala 2.10.0.
+
+Please DO NOT USE THIS (will only work with Scala 2.10.0-M6 anyway).
+
 ## What is it ?
 
 This project is a simple yet fully functional prototype to port a subset of [ScalaCL](https://code.google.com/p/scalacl/) / [Scalaxy](https://github.com/ochafik/Scalaxy)'s loop rewrites to Scala 2.10.
