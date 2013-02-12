@@ -1,6 +1,6 @@
 # Moved to Scalaxy
 
-THIS WORK IS SUPERSEEDED BY [Scalaxy/Ranges](https://github.com/ochafik/Scalaxy/tree/master/Ranges), which is tailored for Scala 2.10.0.
+THIS WORK IS SUPERSEEDED BY [Scalaxy/Loops](https://github.com/ochafik/Scalaxy/tree/master/Loops), which is tailored for Scala 2.10.0.
 
 Please DO NOT USE THIS (will only work with Scala 2.10.0-M6 anyway).
 
